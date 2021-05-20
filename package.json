@@ -1,0 +1,29 @@
+{
+  "name": "app_node",
+  "version": "1.0.0",
+  "description": "backend-app",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukeal90/APP_API_NODE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukeal90/APP_API_NODE/issues"
+  },
+  "homepage": "https://github.com/lukeal90/APP_API_NODE#readme",
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.10",
+    "nodemon": "^2.0.7"
+  }
+}

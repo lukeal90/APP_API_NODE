@@ -1,8 +1,3 @@
-import "./helpers/database.js";
-
-//console.log("Hola")
-
-/*
 import mongoose from 'mongoose';
 
 const user = 'admin'
@@ -15,4 +10,3 @@ mongoose.connect(MONGODB_URI,
 )
     .then(() => console.log('Database is connected'))
     .catch(e => console.log(e))
-*/

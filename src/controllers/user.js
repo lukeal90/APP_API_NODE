@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 
 const addUser = async (req, res, next) => {
   try {
-    const { name, email, passwd} = req.body;
-    const user = new User({name,email,passwd});
+    const { name, email, passwd, friends} = req.body;
+    const user = new User({name,email,passwd, friends});
     // Encriptar password
     const salt = bcrypt.genSaltSync(10);
     user.passwd = bcrypt.hashSync(passwd, salt);
@@ -24,7 +24,17 @@ const otra = async (req, res, next) => {
   }
 };
 
+const otraFuncion = async (req, res, next) => {
+  try {
+    const { msj } = req.body;
+    res.send(`${msj}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addUser,
   otra,
+  otraFuncion
 };

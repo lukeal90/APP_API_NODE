@@ -1,6 +1,5 @@
-//import "./helpers/database.js";
 require('dotenv').config();
-const Server = require('./src/models/server.js');
+const Server = require('./helpers/server');
 
 const server = new Server();
 server.listen();

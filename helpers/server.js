@@ -8,6 +8,7 @@ class Server {
     this.PORT = process.env.PORT;
     this.usersPath = '/api/user';
     this.authPath = '/api/auth';
+  
     // Conecta a la base de datos
     this.connectDb();
     // levanta middlewares

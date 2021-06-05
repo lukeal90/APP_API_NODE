@@ -7,6 +7,7 @@ class Server {
     this.app = express();
     this.PORT = process.env.PORT;
     this.usersPath = '/api/user';
+    this.authPath = '/api/auth';
     // Conecta a la base de datos
     this.connectDb();
     // levanta middlewares
@@ -28,6 +29,7 @@ class Server {
 
   routes() {
     this.app.use(this.usersPath, require('../src/routes/api/user'));
+    this.app.use(this.authPath, require('../src/routes/api/auth'));
   }
 
   listen() {

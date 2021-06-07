@@ -1,13 +1,21 @@
+const UserModel = require('../models/user');
 
 const addUser = (user) => {
   user.save();
 };
 
-const otra = () => {
-  return 'Funciono otra';
-};
+const checkEmail = (email) => {
+  return UserModel.findOne({
+    'email' : email
+  }).lean()
+}
+
+const deleteUser = (user) => {
+  return `Usuario: ${user} eliminado`
+}
 
 module.exports = {
   addUser,
-  otra,
+  deleteUser,
+  checkEmail
 };

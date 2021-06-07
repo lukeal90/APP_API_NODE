@@ -1,21 +1,25 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, Types} = require('mongoose');
 
 const ReviewSchema = Schema({
     text: {
-        type: 'String',
+        type: String,
         required: [true, "text is required"]
     },
     score: {
-        type: 'number',
+        type: Number,
         required: [true, "score is required"]
     },
     idPelicula: {
-        type: 'ObjectId',
-        //required: [true, "idPelicula is required"]
+        type: Types.ObjectId,
+        required: [true, "idPelicula is required"]
     },
     idUser: {
-        type: 'ObjectId',
-        //required: [true, "idUser is required"]
+        type: Types.ObjectId,
+        required: [true, "idUser is required"]
+    },
+    createdAt: {
+        type: Date,
+        required: [true, "Date is required"]
     }
 });
 

@@ -5,8 +5,8 @@ const validate = require('../middlewares/validate');
 const UserController = require('../../controllers/user');
 
 
-router.get('/adduser', UserController.addUser);
-router.get('/otra', UserController.otra);
+router.put('/',validate(schema), UserController.addUser);
+router.delete('/:id', UserController.deleteUser);
 
 
 

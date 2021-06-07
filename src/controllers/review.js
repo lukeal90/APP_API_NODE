@@ -1,18 +1,12 @@
 const ReviewService = require('../services/review');
-const Review = require('../models/review');
 const mongoose = require('mongoose');
-const { db } = require('../models/review');
 
 const addReview = async (req, res, next) => {
     try {
         const { text, score, idPelicula, idUser} = req.body;
         const idP = mongoose.Types.ObjectId(idPelicula);
         const idU = mongoose.Types.ObjectId(idUser);
-        const createdAt = new Date();
-        const review = new Review({text, score, idPelicula, idUser, createdAt});
-        review.idPelicula = idP;
-        review.idUser = idU;
-        res.send(await ReviewService.addReview(review));
+        res.send(await ReviewService.addReview(text, score, idP, idU))
     }catch(error){
         next(error);
     }
@@ -20,10 +14,9 @@ const addReview = async (req, res, next) => {
 
 const updateReview = async (req,res,next) => {
     try {
-        const { _id } = req.params;
+        //const { _id } = req.params;
         const { text, score} = req.body;
-        const rta = await Review.findOneAndUpdate(_id, {$set: {text, score}},{new: true},);
-        res.send(await rta);
+        res.send(await ReviewService.updateReview(req.params.id,text,score));
     } catch (error) {
         next(error);
     }
@@ -31,9 +24,7 @@ const updateReview = async (req,res,next) => {
 
 const deleteReview = async (req, res, next) => {
     try{
-        const { _id } = req.params;
-        const rta = await Review.findOneAndDelete(_id);
-        res.send(await rta);
+        res.send(await ReviewService.deleteReview(req.params.id));
     }catch (error) {
         next(error);
     }

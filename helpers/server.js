@@ -9,6 +9,7 @@ class Server {
     this.usersPath = '/api/user';
     this.authPath = '/api/auth';
     this.reviewPath = '/api/review';
+  
     // Conecta a la base de datos
     this.connectDb();
     // levanta middlewares

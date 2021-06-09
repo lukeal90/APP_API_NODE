@@ -30,44 +30,8 @@ const deleteReview = async (req, res, next) => {
     }
 };
 
-
-const lastReviewsMovie = async (req, res, next) => {
-try {
-    const {idPelicula} = req.params;
-    let movieRevs = await ReviewService.lastReviewsMovie(idPelicula);
-    let lastReviews;
-    if (movieRevs.length > 5) {
-        lastReviews = movieRevs.slice(Math.max(reviews.length - 5, 1));
-    }
-    else{
-        lastReviews = movieRevs;
-    }
-    
-    res.send(lastReviews);
-    console.log('Lucas manco con AWP');
-}
-catch (error) {
-    next(error);
-}
-}
-
-
-const getReviewsId = async (req, res, next) => {
-try {
-    const {idUser} = req.params;
-    res.send(await ReviewService.getReviewsId(idUser));
-    console.log('Lucas gay');
-}
-catch (error) {
-    next(error);
-}
-
-}
-
 module.exports = {
     addReview,
     updateReview,
-    deleteReview,
-    lastReviewsMovie,
-    getReviewsId
+    deleteReview
 };

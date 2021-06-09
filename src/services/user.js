@@ -21,7 +21,6 @@ const deleteUser = (user) => {
 const addFriend = (idU, idF) => {
   User = UserModel.find({_id: idU})
   User.friends.push( idF );
-  
 }
 
 
@@ -37,8 +36,6 @@ const getFriend = (idU, idF) =>{
 const getFriends = (idU) =>{
   User = UserModel.find({_id: idU})
   return  User.UserModel.friends.find().exec();
-
-
 }
 
 module.exports = {

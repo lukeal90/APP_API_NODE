@@ -21,10 +21,10 @@ const UserSchema = Schema({
         type: Boolean
     },
     friends: {
-        type: Array,
+        type: [],
     },
     reviews: {
-        type: Array
+        type: []
     }
 });
 

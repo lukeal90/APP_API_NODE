@@ -1,25 +1,32 @@
 const UserService = require('../services/user');
 const User = require('../models/user');
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
 
 const addUser = async (req, res, next) => {
   try {
-    const { name, email, passwd} = req.body;
-    const user = new User({name,email,passwd});
+    const { name, email, passwd, friends } = req.body;
+    const state = true;
+    const user = new User({name,email,passwd, friends, state});
     // Encriptar password
-    const salt = bcrypt.genSaltSync(10);
-    user.passwd = bcrypt.hashSync(passwd, salt);
+    const salt = bcryptjs.genSaltSync(10);
+    user.passwd = bcryptjs.hashSync(passwd, salt);
 
-    await res.send(UserService.addUser(user));
+    res.send(await UserService.addUser(user));
   } catch (error) {
     next(error);
   }
 };
 
-const otra = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   try {
-    res.send(UserService.otra());
+    const { id } = req.params;
+    res.json({
+      'id': id,
+      'msg': 'Se borro el usuario'
+    })
+    
+   // res.send(await UserService.deleteUser());
   } catch (error) {
     next(error);
   }
@@ -63,18 +70,14 @@ const getFriend = async (req, res, next ) =>{
 
 }
   
-
 const deleteFriend = async (req, res,next) =>{
   try{
     const { _id } = req.params;
     res.send(await UserService.deleteFriend(_id));
-}catch (error) {
+  }catch (error) {
     next(error);
+  }
 }
-
-}
-
-
 
 module.exports = {
   addUser,
@@ -82,5 +85,6 @@ module.exports = {
   addFriend,
   getFriends,
   getFriend,
-  deleteFriend
+  deleteFriend,
+  deleteUser
 };

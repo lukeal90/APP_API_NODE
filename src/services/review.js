@@ -18,15 +18,15 @@ const lastReviewsMovie = (movieId) => {
 }
 
 const addReview = (text, score, idP, idU) => {
-    ReviewModel.create({text, score, idPelicula: idP , idUser: idU, createdAt: new Date()});
+    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, createdAt: new Date()});
 };
 
 const updateReview = (id,text, score) => {
-    ReviewModel.findOneAndUpdate({_id: id}, {$set: {text, score}},{new: true},(err, res)=> {});
+    return ReviewModel.findOneAndUpdate({_id: id}, {$set: {text, score}},{new: true},(err, res)=> {});
 }
 
 const deleteReview = (id) => {
-    ReviewModel.findOneAndDelete({_id: id},(err, res)=> {});
+    return ReviewModel.findOneAndDelete({_id: id},(err, res)=> {});
 }
 
 module.exports = {

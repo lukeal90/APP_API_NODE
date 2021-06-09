@@ -18,13 +18,13 @@ const deleteUser = (user) => {
   return `Usuario: ${user} eliminado`
 }
 
+
 const addFriend =  (idU, idF) => {
   const user =  UserModel.findById(idU).exec();
  //const user = UserModel.findByIdAndUpdate(idU, {"$push":{"friends": idF}}, {"new":true,"upsert":true});
 
   user.friends.push(idF);
   user.save();
-
 }
 
 

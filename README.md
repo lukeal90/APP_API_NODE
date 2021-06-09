@@ -42,7 +42,7 @@ Donde un usuario puede compartir reviews, agregar amigos, ver películas recomen
     * (put) Agregar review           ```/api/review/``` 
     * (post) Actualizar review       ```/api/review/:id```
     * (delete) Borrar review         ```/api/review/:id```
-    * (get) Obtener pelicula         ```/api/review/lastmovie/:idPelicula```
+    * (get) Obtener últimas 5 review ```/api/review/lastmovie/:idPelicula```
     * (get) Obtener usuario          ```/api/review/:idUser```
   
 * /api/auth/
@@ -54,4 +54,4 @@ Donde un usuario puede compartir reviews, agregar amigos, ver películas recomen
     * (post) Agregar amigos          ```/api/users/friends/addfriend```
     * (delete) Eliminar amigo        ```/api/users/friends/deletefriend/:id```
     * (get) Obtener amigo            ```/api/users/friends/getfriend/:id```
-    * (get) Obtener todos los amigos ```/api/users//friends/getfriends```
+    * (get) Obtener todos los amigos ```/api/users/friends/getfriends```

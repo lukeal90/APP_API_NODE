@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
                 msg: 'usuario inactivo'
             })
         }
-        // verigicamos password
+        // verificamos password
         const validatePasswd = bcryptjs.compareSync(passwd, user.passwd);
         if (!validatePasswd) {
             return res.status(400).json({

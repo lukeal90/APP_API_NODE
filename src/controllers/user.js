@@ -38,7 +38,6 @@ const addFriend = async (req, res,next) =>{
     const { idUser, idFriend } = req.body;
     const idU =  mongoose.Types.ObjectId(idUser);
     const idF = mongoose.Types.ObjectId(idFriend);
-   
     res.send(await UserService.addFriend(idU, idF))
   }catch(error){
     next(error)
@@ -48,7 +47,8 @@ const addFriend = async (req, res,next) =>{
 
 const getFriends = async (req, res,next ) =>{
  try{
-  const idU =  mongoose.Types.ObjectId(idUser);
+   const {idUser} = req.params
+   const idU =  mongoose.Types.ObjectId(idUser);
   res.send(await UserService.getFriends(idU));
  }catch(error){
   next(error)
@@ -61,8 +61,6 @@ const getFriend = async (req, res, next ) =>{
     const { idUser, idFriend} = req.body;
     const idU =  mongoose.Types.ObjectId(idUser);
     const idF = mongoose.Types.ObjectId(idFriend);
-
-   
     res.send(await UserService.getFriend(idU,idF));
 }catch (error) {
     next(error);
@@ -72,8 +70,10 @@ const getFriend = async (req, res, next ) =>{
   
 const deleteFriend = async (req, res,next) =>{
   try{
-    const { _id } = req.params;
-    res.send(await UserService.deleteFriend(_id));
+    const { idUser, idFriend} = req.body;
+    const idU =  mongoose.Types.ObjectId(idUser);
+    const idF = mongoose.Types.ObjectId(idFriend);
+    res.send(await UserService.deleteFriend(idU, idF));
   }catch (error) {
     next(error);
   }

@@ -8,6 +8,16 @@ const otra = () => {
  return 'Funciono otra';
 };
 
+const checkEmail = (email) => {
+  return UserModel.findOne({
+    'email' : email
+  }).lean()
+}
+
+const deleteUser = (user) => {
+  return `Usuario: ${user} eliminado`
+}
+
 const addFriend = (idU, idF) => {
   User = UserModel.find({_id: idU})
   User.friends.push( idF );
@@ -38,5 +48,6 @@ module.exports = {
   getFriend,
   getFriends,
   otra,
-  
+  deleteUser,
+  checkEmail
 };

@@ -43,7 +43,7 @@ Donde un usuario puede compartir reviews, agregar amigos, ver películas recomen
     * (post) Actualizar review       ```/api/review/:id```
     * (delete) Borrar review         ```/api/review/:id```
     * (get) Obtener últimas 5 review ```/api/review/lastmovie/:idPelicula```
-    * (get) Obtener usuario          ```/api/review/:idUser```
+    * (get) Obtener review de usuario```/api/review/:idUser```
   
 * /api/auth/
     * (post) Login del user          ```/api/auth/login```

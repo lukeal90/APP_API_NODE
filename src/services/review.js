@@ -5,16 +5,16 @@ const getReviewsId = async (id) =>{
 };
 
 const lastReviewsMovie = (movieId) => {
-    const reviews = ReviewModel.find({idPelicula: movieId}).exec();
-    let lastReviews;
-
+    return ReviewModel.find({idPelicula: movieId}).exec();
+    
+    /*Logic to be removed from service
     if (reviews.length >= 5){ 
      lastReviews = reviews.slice(Math.max(reviews.length - 5, 1));
     }
     else {
        lastReviews = reviews;
     }
-    return lastReviews;
+    return lastReviews;*/
 }
 
 const addReview = (text, score, idP, idU) => {

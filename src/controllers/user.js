@@ -26,7 +26,7 @@ const deleteUser = async (req, res, next) => {
       'msg': 'Se borro el usuario'
     })
     
-   // res.send(await UserService.deleteUser());
+   // Terminar de implementar => Cambiar state de user to false. 
   } catch (error) {
     next(error);
   }
@@ -81,7 +81,6 @@ const deleteFriend = async (req, res,next) =>{
 
 module.exports = {
   addUser,
-  otra,
   addFriend,
   getFriends,
   getFriend,

@@ -19,19 +19,19 @@ const deleteUser = (user) => {
 }
 
 const addFriend = (idU, idF) => {
-  User = UserModel.find({_id: idU})
-  User.friends.push( idF );
+  const user = UserModel.find({_id: idU})
+  user.friends.push( idF );
   
 }
 
 
 const deleteFriend = (idU) => {
- UserModel.friends.DeleteOne({id: idU});
+ return UserModel.friends.DeleteOne({id: idU});
 }
 
 const getFriend = (idU, idF) =>{
-  User = UserModel.find({_id: idU})
-  return User.friends.findOne(idF ).exec();
+  const user = UserModel.find({_id: idU})
+  return user.friends.findOne(idF ).exec();
 }
 
 const getFriends = (idU) =>{

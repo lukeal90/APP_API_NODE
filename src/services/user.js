@@ -18,25 +18,30 @@ const deleteUser = (user) => {
   return `Usuario: ${user} eliminado`
 }
 
-const addFriend = (idU, idF) => {
-  const user = UserModel.find({_id: idU})
-  user.friends.push( idF );
-  
+const addFriend =  (idU, idF) => {
+  const user =  UserModel.findById(idU).exec();
+ //const user = UserModel.findByIdAndUpdate(idU, {"$push":{"friends": idF}}, {"new":true,"upsert":true});
+
+  user.friends.push(idF);
+  user.save();
+
 }
 
 
-const deleteFriend = (idU) => {
- return UserModel.friends.DeleteOne({id: idU});
+const deleteFriend =  (idU,idF) => {
+  const user = UserModel.findById(idU).exec();
+  user.friends.findOneAndDelete(idF);
+  user.save();
 }
 
 const getFriend = (idU, idF) =>{
-  const user = UserModel.find({_id: idU})
-  return user.friends.findOne(idF ).exec();
+  const user = UserModel.findById(idU)
+  return user.friends.findOne(idF).exec();
 }
 
 const getFriends = (idU) =>{
-  User = UserModel.find({_id: idU})
-  return  User.UserModel.friends.find().exec();
+  const user =  UserModel.findById(idU).exec();
+  return user.UserModel.friends.find().exec();
 }
 
 module.exports = {

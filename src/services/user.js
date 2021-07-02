@@ -1,11 +1,8 @@
+//const user = require('../models/user');
 const UserModel = require('../models/user');
 
 const addUser = (user) => {
   user.save();
-};
-
-const otra = () => {
- return 'Funciono otra';
 };
 
 const checkEmail = (email) => {
@@ -14,19 +11,16 @@ const checkEmail = (email) => {
   }).lean()
 }
 
-const deleteUser = (user) => {
-  return `Usuario: ${user} eliminado`
+const deleteUser = (id) => {
+    const user = UserModel.findByIdAndUpdate({_id: id, deleted: false},{deleted: true} ,(err, res)=> {});
+    return user;
 }
 
 const addFriend =  (idU, idF) => {
   const user =  UserModel.findById(idU).exec();
- //const user = UserModel.findByIdAndUpdate(idU, {"$push":{"friends": idF}}, {"new":true,"upsert":true});
-
   user.friends.push(idF);
   user.save();
-
 }
-
 
 const deleteFriend =  (idU,idF) => {
   const user = UserModel.findById(idU).exec();
@@ -35,7 +29,7 @@ const deleteFriend =  (idU,idF) => {
 }
 
 const getFriend = (idU, idF) =>{
-  const user = UserModel.findById(idU)
+  const user = UserModel.findById(idU);
   return user.friends.findOne(idF).exec();
 }
 
@@ -44,13 +38,29 @@ const getFriends = (idU) =>{
   return user.UserModel.friends.find().exec();
 }
 
+const addMovie = (idU, idM, title, image) => {
+  const user =  UserModel.findById(idU).exec();
+  const movie = {idPelicula: idM, titulo: title, imagen: image};
+
+  user.movies.push(movie);
+  user.save();
+}
+
+const getMovies = (idU) =>{
+  const user =  UserModel.findById(idU).exec();
+  return user.movies.find().exec();
+}
+
+
+
 module.exports = {
   addUser,
   addFriend,
   deleteFriend,
   getFriend,
   getFriends,
-  otra,
   deleteUser,
+  getMovies,
+  addMovie,
   checkEmail
 };

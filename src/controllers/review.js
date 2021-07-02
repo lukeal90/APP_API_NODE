@@ -54,29 +54,13 @@ const getReviewsId = async (req, res, next) => {
 try {
     const {idUser} = req.params;
     res.send(await ReviewService.getReviewsId(idUser));
-    console.log('Lucas gay');
+    
 }
 catch (error) {
     next(error);
 }
 
 }
-
-
-const getReviewsId = async (req, res, next) => {
-    try {
-        const {idUser} = req.params;
-        res.send(await ReviewService.getReviewsId(idUser));
-        console.log('Lucas gay');
-    }
-    catch (error) {
-        next(error);
-    }
-    
-    }
-
-
-
 
 module.exports = {
     addReview,

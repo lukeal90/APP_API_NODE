@@ -5,9 +5,9 @@ const bcryptjs = require('bcryptjs');
 
 const addUser = async (req, res, next) => {
   try {
-    const { name, email, passwd, friends } = req.body;
-    const state = true;
-    const user = new User({name,email,passwd, friends, state});
+    const { name, email, passwd } = req.body;
+    const deleted = false;
+    const user = new User({name,email,passwd, deleted});
     // Encriptar password
     const salt = bcryptjs.genSaltSync(10);
     user.passwd = bcryptjs.hashSync(passwd, salt);
@@ -20,13 +20,8 @@ const addUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    res.json({
-      'id': id,
-      'msg': 'Se borro el usuario'
-    })
-    
-   // Terminar de implementar => Cambiar state de user to false. 
+    res.send(await UserService.deleteUser(req.params.id));
+
   } catch (error) {
     next(error);
   }
@@ -47,7 +42,7 @@ const addFriend = async (req, res,next) =>{
 
 const getFriends = async (req, res,next ) =>{
  try{
-   const {idUser} = req.params
+   const {idUser} = req.params;
    const idU =  mongoose.Types.ObjectId(idUser);
   res.send(await UserService.getFriends(idU));
  }catch(error){
@@ -79,11 +74,50 @@ const deleteFriend = async (req, res,next) =>{
   }
 }
 
+const addMovie = async  (req, res, next) =>{
+try{
+  const {idUser, idMovie, titulo, imagen } = req.body;
+  const idU =  mongoose.Types.ObjectId(idUser);
+ 
+
+  res.send(await UserService.addMovie(idU, idMovie, titulo, imagen));
+
+}catch (error) {
+  next(error);
+}
+
+}
+
+const deleteMovie = async (req, res, next) =>{
+  try{
+
+
+  }catch (error){
+    next(error);
+  }
+}
+
+
+const getMovies = async (req, res, next) =>{
+  try{
+    const {idUser} = req.params;
+    const idU = mongoose.Types.ObjectId(idUser);
+    res.send(await User.service.getMovies(idU));
+  }catch (error){
+    next(error);
+  }
+}
+
+
 module.exports = {
   addUser,
+  deleteUser,
   addFriend,
   getFriends,
   getFriend,
   deleteFriend,
-  deleteUser
+  deleteUser,
+  addMovie,
+  deleteMovie,
+  getMovies
 };

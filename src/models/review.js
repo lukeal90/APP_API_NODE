@@ -17,6 +17,10 @@ const ReviewSchema = Schema({
         type: Types.ObjectId,
         required: [true, "idUser is required"]
     },
+    movieImg: {
+        type: String,
+        required: [true, "movieImg is required"]
+    },
     createdAt: {
         type: Date,
         required: [true, "Date is required"]

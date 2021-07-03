@@ -14,9 +14,7 @@ const addReview = async (req, res, next) => {
 
 const updateReview = async (req,res,next) => {
     try {
-        //const { _id } = req.params;
-        const { text, score} = req.body;
-        res.send(await ReviewService.updateReview(req.params.id,text,score));
+        res.send(await ReviewService.updateReview(req.params.id,req.body.text,req.body.score));
     } catch (error) {
         next(error);
     }
@@ -52,9 +50,7 @@ const lastReviewsMovie = async (req, res, next) => {
 
 const getReviewsId = async (req, res, next) => {
 try {
-    const {idUser} = req.params;
-    res.send(await ReviewService.getReviewsId(idUser));
-    
+    res.send(await ReviewService.getReviewsId(req.params.idUser));
 }
 catch (error) {
     next(error);

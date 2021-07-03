@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 const addReview = async (req, res, next) => {
     try {
-        const { text, score, idPelicula, idUser} = req.body;
+        const { text, score, idPelicula, idUser, movieImg} = req.body;
         const idP = mongoose.Types.ObjectId(idPelicula);
         const idU = mongoose.Types.ObjectId(idUser);
-        res.send(await ReviewService.addReview(text, score, idP, idU))
+        res.send(await ReviewService.addReview(text, score, idP, idU, movieImg))
     }catch(error){
         next(error);
     }

@@ -8,8 +8,8 @@ const lastReviewsMovie = (movieId) => {
     return ReviewModel.find({idPelicula: movieId}).exec();
 }
 
-const addReview = (text, score, idP, idU) => {
-    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, createdAt: new Date()});
+const addReview = (text, score, idP, idU, img) => {
+    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, movieImg: img, createdAt: new Date()});
 };
 
 const updateReview = (id,text, score) => {

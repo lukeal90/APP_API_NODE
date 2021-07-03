@@ -13,11 +13,11 @@ const addReview = (text, score, idP, idU) => {
 };
 
 const updateReview = (id,text, score) => {
-    return ReviewModel.findOneAndUpdate({_id: id}, {$set: {text, score}},{new: true},(err, res)=> {});
+    return ReviewModel.findOneAndUpdate({_id: id, deleted: false}, {$set: {text, score}},{new: true},(err, res)=> {});
 }
 
 const deleteReview = (id) => {
-    return ReviewModel.findOneAndDelete({_id: id},(err, res)=> {});
+    return ReviewModel.findOneAndUpdate({_id: id, deleted: false},{deleted: true},(err, res)=> {});
 }
 
 module.exports = {

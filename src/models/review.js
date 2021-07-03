@@ -20,6 +20,10 @@ const ReviewSchema = Schema({
     createdAt: {
         type: Date,
         required: [true, "Date is required"]
+    },
+    deleted: {
+        type: Boolean,
+        default: false,
     }
 });
 

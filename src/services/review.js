@@ -1,10 +1,10 @@
 const ReviewModel = require('../models/review');
 
-const getReviewsId = async (id) =>{
+const getReviewsbyUserId = async (id) =>{
     return await ReviewModel.find({idUser: id }).exec();
 };
 
-const lastReviewsMovie = (movieId) => {
+const lastReviewsbyMovieId = (movieId) => {
     return ReviewModel.find({idPelicula: movieId}).exec();
 }
 
@@ -24,6 +24,6 @@ module.exports = {
     addReview,
     updateReview,
     deleteReview,
-    getReviewsId,
-    lastReviewsMovie
+    getReviewsbyUserId,
+    lastReviewsbyMovieId
 }

@@ -9,6 +9,7 @@ router.post('/:id', ReviewController.updateReview);
 router.delete('/:id', ReviewController.deleteReview);
 router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsMovie);
 router.get('/:idUser', ReviewController.getReviewsId);
+router.get('/friendsReviews', ReviewController.getfriendsReviews);
 
 
 module.exports = router;

@@ -28,7 +28,7 @@ const deleteReview = async (req, res, next) => {
     }
 };
 
-const lastReviewsMovie = async (req, res, next) => {
+const lastReviewsbyMovieId = async (req, res, next) => {
     try {
         const {idPelicula} = req.params;
         let movieRevs = await ReviewService.lastReviewsMovie(idPelicula);
@@ -48,20 +48,42 @@ const lastReviewsMovie = async (req, res, next) => {
     }
     }
 
-const getReviewsId = async (req, res, next) => {
+const getReviewsbyUserId = async (req, res, next) => {
 try {
-    res.send(await ReviewService.getReviewsId(req.params.idUser));
+    res.send(await ReviewService.getReviewsbyUserId(req.params.idUser));
 }
 catch (error) {
     next(error);
 }
+}
+
+const getfriendsReviews = async (req, res, next) => {
+    try {
+
+        const {friendsIds} = req.body;
+        let reviews = {};
+        friendsIds.forEach(friendId => {
+            reviews[friendId] = await ReviewService.getReviewsbyUserId(friendId);
+        })
+        res.send(JSON.stringify(reviews));
+    }
+    catch (error) {
+        next(error);
+    }
+
 
 }
+
+
+
+
+
 
 module.exports = {
     addReview,
     updateReview,
     deleteReview,
-    getReviewsId,
-    lastReviewsMovie
+    getReviewsbyUserId,
+    lastReviewsbyMovieId,
+    getfriendsReviews
 };

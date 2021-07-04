@@ -2,12 +2,16 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY;
 const User = require('../../models/user')
 const Boom = require('@hapi/boom');
+const TOKEN_HEADER = process.env.TOKEN_HEADER;
+const {
+    ERROR
+} = require('../../../helpers')
 
 const validateJWT = async (req, res, next) => {
-    const token = req.header('x-token')
+    const token = req.header(TOKEN_HEADER)
     if (!token) {
         return res.status(401).json({
-            msg: "Unauthorized"
+            msg: ERROR.UNAUTHORIZED
         })
     }
     try {
@@ -17,18 +21,20 @@ const validateJWT = async (req, res, next) => {
         const user = await User.findById(_id);
 
         if (!user) {
-            return res.status(401).send(Boom.unauthorized("Invalid token - user doesn't exist in DB"));
+            return res.status(401).json({
+                msg: ERROR.INVALID_TOKEN_DB
+            });
         }
         if (user.deleted) {
             return res.status(401).json({
-                msg: "Invalid token - user deleted: true"
+                msg: ERROR.INACTIVE
             })
         }
         req.user = user;
         next();
     } catch (err) {
         res.status(401).json({
-            msg: "Invalid token"
+            msg: ERROR.LOGIN
         })
     }
 }

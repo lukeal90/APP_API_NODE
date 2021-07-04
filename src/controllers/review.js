@@ -41,7 +41,6 @@ const lastReviewsbyMovieId = async (req, res, next) => {
         }
         
         res.send(lastReviews);
-        console.log('Lucas manco con AWP');
     }
     catch (error) {
         next(error);
@@ -57,31 +56,10 @@ catch (error) {
 }
 }
 
-// const getfriendsReviews = async (req, res, next) => {
-//     try {
-
-//         const {friends} = req.body;
-//         let reviews = {};
-//         friends.forEach(friendId => {
-//             reviews[friendId] = await ReviewService.getReviewsbyUserId(friendId);
-//         })
-//         res.send(JSON.stringify(reviews));
-//     }
-//     catch (error) {
-//         next(error);
-//     }
-// }
-
-
-
-
-
-
 module.exports = {
     addReview,
     updateReview,
     deleteReview,
     getReviewsbyUserId,
     lastReviewsbyMovieId,
-    //getfriendsReviews
 };

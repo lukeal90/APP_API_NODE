@@ -1,29 +1,29 @@
 const ReviewModel = require('../models/review');
 
-const getReviewsId = async (id) =>{
+const getReviewsbyUserId = async (id) =>{
     return await ReviewModel.find({idUser: id }).exec();
 };
 
-const lastReviewsMovie = (movieId) => {
+const lastReviewsbyMovieId = (movieId) => {
     return ReviewModel.find({idPelicula: movieId}).exec();
 }
 
-const addReview = (text, score, idP, idU) => {
-    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, createdAt: new Date()});
+const addReview = (text, score, idP, idU, img) => {
+    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, movieImg: img, createdAt: new Date(), deleted: false});
 };
 
 const updateReview = (id,text, score) => {
-    return ReviewModel.findOneAndUpdate({_id: id}, {$set: {text, score}},{new: true},(err, res)=> {});
+    return ReviewModel.findOneAndUpdate({_id: id, deleted: false}, {$set: {text, score}},{new: true},(err, res)=> {});
 }
 
 const deleteReview = (id) => {
-    return ReviewModel.findOneAndDelete({_id: id},(err, res)=> {});
+    return ReviewModel.findOneAndUpdate({_id: id, deleted: false},{deleted: true},(err, res)=> {});
 }
 
 module.exports = {
     addReview,
     updateReview,
     deleteReview,
-    getReviewsId,
-    lastReviewsMovie
+    getReviewsbyUserId,
+    lastReviewsbyMovieId
 }

@@ -8,7 +8,6 @@ const addUser = async (req, res, next) => {
     const { name, email, passwd } = req.body;
     const deleted = false;
     const user = new User({name,email,passwd, deleted});
-    // Encriptar password
     const salt = bcryptjs.genSaltSync(10);
     user.passwd = bcryptjs.hashSync(passwd, salt);
 

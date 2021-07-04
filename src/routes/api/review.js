@@ -7,8 +7,8 @@ const router = Router();
 router.put('/',validateJWT, ReviewController.addReview);
 router.post('/:id',validateJWT, ReviewController.updateReview);
 router.delete('/:id',validateJWT, ReviewController.deleteReview);
-//router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsMovie);
-//router.get('/:idUser', ReviewController.getReviewsId);
-//router.get('/friendsReviews', ReviewController.getfriendsReviews);
+router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsbyMovieId);
+router.get('/:idUser', ReviewController.getReviewsbyUserId);
+router.put('/getFriendsReviews/', ReviewController.getFriendsReviews);
 
 module.exports = router;

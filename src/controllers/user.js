@@ -21,19 +21,15 @@ const addUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     res.send(await UserService.deleteUser(req.params.id));
-
   } catch (error) {
     next(error);
   }
 };
 
 const addFriend = async (req, res,next) =>{
-
   try{
-    const { idUser, idFriend } = req.body;
-    const idU =  mongoose.Types.ObjectId(idUser);
-    const idF = mongoose.Types.ObjectId(idFriend);
-    res.send(await UserService.addFriend(idU, idF))
+    const { _id, id } = req.body;
+    res.send(await UserService.addFriend(_id, id))
   }catch(error){
     next(error)
   }
@@ -42,9 +38,7 @@ const addFriend = async (req, res,next) =>{
 
 const getFriends = async (req, res,next ) =>{
  try{
-   const {idUser} = req.params;
-   const idU =  mongoose.Types.ObjectId(idUser);
-  res.send(await UserService.getFriends(idU));
+   res.send(await UserService.getFriends(req.params.id));
  }catch(error){
   next(error)
  }
@@ -53,22 +47,18 @@ const getFriends = async (req, res,next ) =>{
 
 const getFriend = async (req, res, next ) =>{
   try{
-    const { idUser, idFriend} = req.body;
-    const idU =  mongoose.Types.ObjectId(idUser);
-    const idF = mongoose.Types.ObjectId(idFriend);
-    res.send(await UserService.getFriend(idU,idF));
+    const {_id, id} = req.body;
+    res.send(await UserService.getFriend(_id,id));
 }catch (error) {
     next(error);
-}
+  }
 
 }
   
 const deleteFriend = async (req, res,next) =>{
   try{
-    const { idUser, idFriend} = req.body;
-    const idU =  mongoose.Types.ObjectId(idUser);
-    const idF = mongoose.Types.ObjectId(idFriend);
-    res.send(await UserService.deleteFriend(idU, idF));
+    const { _id, id } = req.body;
+     res.send(await UserService.deleteFriend(_id, id));
   }catch (error) {
     next(error);
   }
@@ -76,22 +66,19 @@ const deleteFriend = async (req, res,next) =>{
 
 const addMovie = async  (req, res, next) =>{
 try{
-  const {idUser, idMovie, titulo, imagen } = req.body;
-  const idU =  mongoose.Types.ObjectId(idUser);
- 
-
-  res.send(await UserService.addMovie(idU, idMovie, titulo, imagen));
-
+  const  {_id, movie} = req.body;
+  //const {idUser, idMovie, titulo, imagen } = req.body;
+  res.send(await UserService.addMovie(_id, movie));
 }catch (error) {
   next(error);
-}
+  }
 
 }
 
 const deleteMovie = async (req, res, next) =>{
   try{
-
-
+    const { _id, movie } = req.body;
+    res.send(await UserService.deleteMovie(_id, movie))
   }catch (error){
     next(error);
   }
@@ -100,9 +87,8 @@ const deleteMovie = async (req, res, next) =>{
 
 const getMovies = async (req, res, next) =>{
   try{
-    const {idUser} = req.params;
-    const idU = mongoose.Types.ObjectId(idUser);
-    res.send(await User.service.getMovies(idU));
+    const {_id} = req.params;
+    res.send(await User.service.getMovies(_id));
   }catch (error){
     next(error);
   }

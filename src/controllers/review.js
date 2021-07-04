@@ -31,7 +31,7 @@ const deleteReview = async (req, res, next) => {
 const lastReviewsbyMovieId = async (req, res, next) => {
     try {
         const {idPelicula} = req.params;
-        let movieRevs = await ReviewService.lastReviewsMovie(idPelicula);
+        let movieRevs = await ReviewService.lastReviewsbyMovieId(idPelicula);
         let lastReviews;
         if (movieRevs.length > 5) {
             lastReviews = movieRevs.slice(Math.max(reviews.length - 5, 1));
@@ -41,7 +41,6 @@ const lastReviewsbyMovieId = async (req, res, next) => {
         }
         
         res.send(lastReviews);
-        console.log('Lucas manco con AWP');
     }
     catch (error) {
         next(error);
@@ -52,20 +51,31 @@ const getReviewsbyUserId = async (req, res, next) => {
 try {
     res.send(await ReviewService.getReviewsbyUserId(req.params.idUser));
 }
-catch (error) {
+catch (error){
     next(error);
 }
 }
 
-const getfriendsReviews = async (req, res, next) => {
-    try {
 
-        const {friendsIds} = req.body;
+
+
+const getFriendsReviews = async (req, res, next) => {
+    
+    try {
+        const {friends} = req.body;
+        console.log('Hi');
+        console.log(friends);
         let reviews = {};
-        friendsIds.forEach(friendId => {
-            reviews[friendId] = await ReviewService.getReviewsbyUserId(friendId);
+        friends.forEach( friendId => {
+            console.log(friendId);
+            let myrevs = ReviewService.getReviewsbyUserId(friendId)
+            reviews = {
+                ...reviews,
+                "`${friendId}`": myrevs 
+            }
         })
-        res.send(JSON.stringify(reviews));
+        console.log(reviews)
+        res.send('pepito');
     }
     catch (error) {
         next(error);
@@ -85,5 +95,5 @@ module.exports = {
     deleteReview,
     getReviewsbyUserId,
     lastReviewsbyMovieId,
-    getfriendsReviews
+    getFriendsReviews
 };

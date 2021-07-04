@@ -30,8 +30,8 @@ const deleteFriend  = async (idU,idF) => {
   user.save();
 }
 
-const getFriend = (idU, idF) =>{
-  const user = UserModel.findById(idU);
+const getFriend = async (idU, idF) =>{
+  const user = await UserModel.findById({_id: idU }).exec();
   return user.friends.findOne(idF).exec();
 }
 

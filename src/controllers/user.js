@@ -28,8 +28,8 @@ const deleteUser = async (req, res, next) => {
 
 const addFriend = async (req, res,next) =>{
   try{
-    const { _id, id } = req.body;
-    res.send(await UserService.addFriend(_id, id))
+    const { _id, idFriend } = req.body;
+    res.send(await UserService.addFriend(_id, idFriend))
   }catch(error){
     next(error)
   }
@@ -47,8 +47,8 @@ const getFriends = async (req, res,next ) =>{
 
 const getFriend = async (req, res, next ) =>{
   try{
-    const {_id, id} = req.body;
-    res.send(await UserService.getFriend(_id,id));
+    const {_id, idFriend} = req.body;
+    res.send(await UserService.getFriend(_id, idFriend));
 }catch (error) {
     next(error);
   }
@@ -57,8 +57,8 @@ const getFriend = async (req, res, next ) =>{
   
 const deleteFriend = async (req, res,next) =>{
   try{
-    const { _id, id } = req.body;
-     res.send(await UserService.deleteFriend(_id, id));
+    const { _id, idFriend } = req.body;
+     res.send(await UserService.deleteFriend(_id, idFriend));
   }catch (error) {
     next(error);
   }
@@ -87,8 +87,7 @@ const deleteMovie = async (req, res, next) =>{
 
 const getMovies = async (req, res, next) =>{
   try{
-    const {_id} = req.params;
-    res.send(await User.service.getMovies(_id));
+    res.send(await UserService.getMovies(req.params.id));
   }catch (error){
     next(error);
   }

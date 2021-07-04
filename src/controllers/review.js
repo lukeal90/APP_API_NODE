@@ -56,9 +56,6 @@ catch (error){
 }
 }
 
-
-
-
 const getFriendsReviews = async (req, res, next) => {
     
     try {
@@ -83,11 +80,6 @@ const getFriendsReviews = async (req, res, next) => {
 
 
 }
-
-
-
-
-
 
 module.exports = {
     addReview,

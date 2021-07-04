@@ -1,4 +1,5 @@
 //const user = require('../models/user');
+const user = require('../models/user');
 const UserModel = require('../models/user');
 
 const addUser = (user) => {
@@ -8,49 +9,54 @@ const addUser = (user) => {
 const checkEmail = (email) => {
   return UserModel.findOne({
     'email' : email
-  }).lean()
+  }).exec();
 }
 
 const deleteUser = (id) => {
-    const user = UserModel.findByIdAndUpdate({_id: id, deleted: false},{deleted: true} ,(err, res)=> {});
-    return user;
+  return UserModel.findByIdAndUpdate( id, {deleted: true});
 }
 
-const addFriend =  (idU, idF) => {
-  const user =  UserModel.findById(idU).exec();
+const addFriend = async (idU, idF) => {
+  const  user = await UserModel.findById({_id: idU }).exec()
+  console.log(user);
   user.friends.push(idF);
   user.save();
 }
 
-const deleteFriend =  (idU,idF) => {
-  const user = UserModel.findById(idU).exec();
-  user.friends.findOneAndDelete(idF);
+const deleteFriend  = async (idU,idF) => {
+  const  user = await UserModel.findById({_id: idU }).exec()
+  user.friends.pull(idF)
   user.save();
 }
 
-const getFriend = (idU, idF) =>{
-  const user = UserModel.findById(idU);
+const getFriend = async (idU, idF) =>{
+  const user = await UserModel.findById({_id: idU }).exec();
   return user.friends.findOne(idF).exec();
 }
 
-const getFriends = (idU) =>{
-  const user =  UserModel.findById(idU).exec();
-  return user.UserModel.friends.find().exec();
+const getFriends = async (idU) =>{
+  const user = await UserModel.findById({_id: idU }).exec();
+    console.log(user.friends);
+    return user.friends;
 }
 
-const addMovie = (idU, idM, title, image) => {
-  const user =  UserModel.findById(idU).exec();
-  const movie = {idPelicula: idM, titulo: title, imagen: image};
+const addMovie = async (idU, idM) => {
+  const user = await UserModel.findById({_id: idU }).exec();
+  user.movies.push(idM);
+  user.save();
+  //const movie = {idPelicula: idM, titulo: title, imagen: image};
+}
 
-  user.movies.push(movie);
+const deleteMovie = async (idU, idM)=>{
+  const user = await UserModel.findById({_id: idU }).exec();
+  user.movies.pull(idM);
   user.save();
 }
 
-const getMovies = (idU) =>{
-  const user =  UserModel.findById(idU).exec();
-  return user.movies.find().exec();
+const getMovies = async (idU) =>{
+  const user = await UserModel.findById({_id: idU }).exec();
+  return user.movies;
 }
-
 
 
 module.exports = {
@@ -62,5 +68,6 @@ module.exports = {
   deleteUser,
   getMovies,
   addMovie,
+  deleteMovie,
   checkEmail
 };

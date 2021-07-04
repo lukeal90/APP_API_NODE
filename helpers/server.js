@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 const { dbConnection } = require('../database/database');
 
 class Server {
@@ -10,11 +11,8 @@ class Server {
     this.authPath = '/api/auth';
     this.reviewPath = '/api/review';
   
-    // Conecta a la base de datos
     this.connectDb();
-    // levanta middlewares
     this.middlewares();
-    // levanta ruta
     this.routes();
   }
 
@@ -23,9 +21,8 @@ class Server {
   }
 
   middlewares() {
-     //cors
+    this.app.use(morgan('dev'));
     this.app.use(cors());
-    // Lectura y parseo del body
     this.app.use(express.json());
   }
 

@@ -1,9 +1,8 @@
 const UserService = require('../services/user');
 const bcryptjs = require('bcryptjs');
-const {generateJwt} = require('../../helpers/generate-jwt')
+const  { generateJwt, ERROR } = require('../../helpers')
 
 const login = async (req, res, next) => {
-
     try {
         const {
             email,
@@ -11,27 +10,22 @@ const login = async (req, res, next) => {
         } = req.body;
         
         const user = await UserService.checkEmail(email);
-        // comprobamos el mail
         if (!user) {
-            return res.send({
-                msg: 'usuario / password no son validos'
+            return res.status(400).json({
+                msg: ERROR.INVALID_USER_PASS
             })
         }
-        // comprobamos si esta activo
-        if (!user.state) {
-            return res.send({
-                msg: 'usuario inactivo'
+        if (user.deleted) {
+            return res.status(400).json({
+                msg: ERROR.USER_INACTVE
             })
         }
-        // verificamos password
         const validatePasswd = bcryptjs.compareSync(passwd, user.passwd);
         if (!validatePasswd) {
             return res.status(400).json({
-                msg: 'usuario / password no son validos'
+                msg: ERROR.INVALID_USER_PASS
             })
         }
-
-        // Genero JWT
 
         const token = await generateJwt(user._id);
        
@@ -41,9 +35,8 @@ const login = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log(error)
         res.status(500).json({
-            msg: 'Algo ocurrio y no pudo loguearse'
+            msg: ERROR.ERROR_LOGIN
         })
     }
 }

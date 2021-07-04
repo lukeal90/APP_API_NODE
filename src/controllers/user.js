@@ -8,7 +8,6 @@ const addUser = async (req, res, next) => {
     const { name, email, passwd } = req.body;
     const deleted = false;
     const user = new User({name,email,passwd, deleted});
-    // Encriptar password
     const salt = bcryptjs.genSaltSync(10);
     user.passwd = bcryptjs.hashSync(passwd, salt);
 
@@ -21,7 +20,6 @@ const addUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     res.send(await UserService.deleteUser(req.params.id));
-
   } catch (error) {
     next(error);
   }

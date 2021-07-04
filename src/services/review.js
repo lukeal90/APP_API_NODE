@@ -9,7 +9,7 @@ const lastReviewsbyMovieId = (movieId) => {
 }
 
 const addReview = (text, score, idP, idU, img) => {
-    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, movieImg: img, createdAt: new Date()});
+    return ReviewModel.create({text, score, idPelicula: idP , idUser: idU, movieImg: img, createdAt: new Date(), deleted: false});
 };
 
 const updateReview = (id,text, score) => {

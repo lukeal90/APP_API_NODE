@@ -8,12 +8,11 @@ const addUser = (user) => {
 const checkEmail = (email) => {
   return UserModel.findOne({
     'email' : email
-  }).lean()
+  }).exec();
 }
 
 const deleteUser = (id) => {
-    const user = UserModel.findByIdAndUpdate({_id: id, deleted: false},{deleted: true} ,(err, res)=> {});
-    return user;
+  return UserModel.findByIdAndUpdate( id, {deleted: true});
 }
 
 const addFriend =  (idU, idF) => {

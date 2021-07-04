@@ -57,22 +57,20 @@ catch (error) {
 }
 }
 
-const getfriendsReviews = async (req, res, next) => {
-    try {
+// const getfriendsReviews = async (req, res, next) => {
+//     try {
 
-        const {friendsIds} = req.body;
-        let reviews = {};
-        friendsIds.forEach(friendId => {
-            reviews[friendId] = await ReviewService.getReviewsbyUserId(friendId);
-        })
-        res.send(JSON.stringify(reviews));
-    }
-    catch (error) {
-        next(error);
-    }
-
-
-}
+//         const {friends} = req.body;
+//         let reviews = {};
+//         friends.forEach(friendId => {
+//             reviews[friendId] = await ReviewService.getReviewsbyUserId(friendId);
+//         })
+//         res.send(JSON.stringify(reviews));
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 
 
@@ -85,5 +83,5 @@ module.exports = {
     deleteReview,
     getReviewsbyUserId,
     lastReviewsbyMovieId,
-    getfriendsReviews
+    //getfriendsReviews
 };

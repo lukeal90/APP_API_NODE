@@ -11,27 +11,22 @@ const login = async (req, res, next) => {
         } = req.body;
         
         const user = await UserService.checkEmail(email);
-        // comprobamos el mail
         if (!user) {
-            return res.send({
+            return res.status(400).json({
                 msg: 'usuario / password no son validos'
             })
         }
-        // comprobamos si esta activo
-        if (!user.state) {
-            return res.send({
+        if (user.deleted) {
+            return res.status(400).json({
                 msg: 'usuario inactivo'
             })
         }
-        // verificamos password
         const validatePasswd = bcryptjs.compareSync(passwd, user.passwd);
         if (!validatePasswd) {
             return res.status(400).json({
                 msg: 'usuario / password no son validos'
             })
         }
-
-        // Genero JWT
 
         const token = await generateJwt(user._id);
        
@@ -41,7 +36,6 @@ const login = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             msg: 'Algo ocurrio y no pudo loguearse'
         })

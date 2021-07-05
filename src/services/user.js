@@ -2,6 +2,7 @@
 const user = require('../models/user');
 const UserModel = require('../models/user');
 
+
 const addUser = (user) => {
   user.save();
 };
@@ -17,7 +18,7 @@ const deleteUser = (id) => {
 }
 
 const addFriend = async (idU, idF) => {
-  const  user = await UserModel.findById({_id: idU }).exec()
+  const user = await UserModel.findById({_id: idU }).exec()
   console.log(user);
   user.friends.push(idF);
   user.save();
@@ -25,18 +26,18 @@ const addFriend = async (idU, idF) => {
 
 const deleteFriend  = async (idU,idF) => {
   const  user = await UserModel.findById({_id: idU }).exec()
-  user.friends.pull(idF)
-  user.save();
+    user.friends.pull(idF)
+    user.save();
+  
 }
 
-const getFriend = async (idU, idF) =>{
-  const user = await UserModel.findById({_id: idU }).exec();
-  return user.friends.findOne(idF).exec();
+const searchUserByName = async(name)=>{
+  return UserModel.findOne({name: name, deleted: false}); 
 }
+
 
 const getFriends = async (idU) =>{
   const user = await UserModel.findById({_id: idU }).exec();
-    console.log(user.friends);
     return user.friends;
 }
 
@@ -63,11 +64,11 @@ module.exports = {
   addUser,
   addFriend,
   deleteFriend,
-  getFriend,
   getFriends,
   deleteUser,
   getMovies,
   addMovie,
   deleteMovie,
+  searchUserByName,
   checkEmail
 };

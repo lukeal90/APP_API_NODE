@@ -6,8 +6,8 @@ const router = Router();
 
 router.put('/friends/addfriend/',validateJWT,UserController.addFriend);
 router.delete('/friends/deletefriend/:id',validateJWT,UserController.deleteFriend)
-router.get('/friends/getfriend/:id',validateJWT,UserController.getFriend)
-router.get('/friends/getfriends',validateJWT,UserController.getFriends)
+router.get('/friends/searchuserbyname/:name',UserController.searchUserByName)
+router.get('/friends/getfriends/:id',UserController.getFriends)
 router.put('/',validate(schema), UserController.addUser);
 router.delete('/:id',validateJWT,validateJWT, UserController.deleteUser);
 router.get('/movies/getmovies/:id',validateJWT, UserController.getMovies);

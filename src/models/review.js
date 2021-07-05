@@ -10,7 +10,7 @@ const ReviewSchema = Schema({
         required: [true, "score is required"]
     },
     idPelicula: {
-        type: Types.ObjectId,
+        type: Number,
         required: [true, "idPelicula is required"]
     },
     idUser: {
@@ -23,7 +23,6 @@ const ReviewSchema = Schema({
     },
     createdAt: {
         type: Date,
-        required: [true, "Date is required"]
     },
     deleted: {
         type: Boolean,

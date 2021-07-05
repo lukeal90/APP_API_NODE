@@ -4,7 +4,8 @@ const ReviewSchemaValidation = Joi.object({
     text: Joi.string()
         .required(),
     score: Joi.number()
-        .required()
+        .required(),
+    
 });
 
 module.exports = ReviewSchemaValidation;

@@ -33,7 +33,7 @@ const deleteFriend  = async (idU,idF) => {
 }
 
 const searchUserByName = async(name)=>{
-  return UserModel.findOne({name: name}); 
+  return UserModel.findOne({name: name, deleted: false}); 
 }
 
 

@@ -4,7 +4,7 @@ const ReviewController = require('../../controllers/review');
 const schema = require('../../schemas/review');
 const router = Router();
 
-router.put('/',validateJWT, ReviewController.addReview);
+router.put('/', validate(schema), ReviewController.addReview);
 router.post('/:id',validateJWT, ReviewController.updateReview);
 router.delete('/:id',validateJWT, ReviewController.deleteReview);
 router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsbyMovieId);

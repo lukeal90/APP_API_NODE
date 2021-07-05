@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 const addReview = async (req, res, next) => {
     try {
         const { text, score, idPelicula, idUser, movieImg} = req.body;
-        const idP = mongoose.Types.ObjectId(idPelicula);
+        if(!idU.match(/^[0-9a-fA-F]{24}$/)){
+
+        }
         const idU = mongoose.Types.ObjectId(idUser);
-        res.send(await ReviewService.addReview(text, score, idP, idU, movieImg))
+        res.send(await ReviewService.addReview(text, score, idPelicula, idU, movieImg))
     }catch(error){
         next(error);
     }

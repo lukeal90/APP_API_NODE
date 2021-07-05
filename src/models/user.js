@@ -17,16 +17,15 @@ const UserSchema = Schema({
     img: {
         type: 'string',
     },
-    
     friends: {
         type: [],
     },
     movies: {
-        //type: [{idPelicula: integer, titulo: String, imagen: String}]
         type: []
     },
     deleted: {
         type: Boolean,
+        default: false
     }
 });
 

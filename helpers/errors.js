@@ -4,7 +4,9 @@ const ERROR = {
     UNAUTHORIZED: 'Unauthorized',
     INVALID_USER_PASS: 'User / Password not valid',
     USER_INACTVE: 'User inactive',
-    ERROR_LOGIN: "ERROR - Something went wrong"
+    ERROR_LOGIN: "ERROR - Something went wrong",
+    ERROR_SIGNUP: "user/email alredy exist",
+    INVALID_DATA: "Invalid data"
 }
 
 module.exports = {

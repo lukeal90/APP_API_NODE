@@ -1,15 +1,17 @@
 const ReviewService = require('../services/review');
 const UserService = require('../services/user');
-const mongoose = require('mongoose');
+const { ERROR } = require('../../helpers')
 
 const addReview = async (req, res, next) => {
     try {
         const { text, score, idPelicula, idUser, movieImg} = req.body;
-        if(!idU.match(/^[0-9a-fA-F]{24}$/)){
-
+        const review = await ReviewService.addReview(text, score, idPelicula, idUser, movieImg);
+        if (review) {
+            res.status(201).json({
+                msg: "success"
+            })
         }
-        const idU = mongoose.Types.ObjectId(idUser);
-        res.send(await ReviewService.addReview(text, score, idPelicula, idU, movieImg))
+        res.send()
     }catch(error){
         next(error);
     }
@@ -33,10 +35,7 @@ const deleteReview = async (req, res, next) => {
 
 const lastReviewsbyMovieId = async (req, res, next) => {
     try {
-        const {
-            idPelicula,
-        } = req.params;
-        let movieRevs = await ReviewService.lastReviewsbyMovieId(idPelicula);
+        let movieRevs = await ReviewService.lastReviewsbyMovieId(req.params.idPelicula);
         let lastReviews;
         if (movieRevs.length > 5) {
             lastReviews = movieRevs.slice(Math.max(reviews.length - 5, 1));
@@ -53,8 +52,8 @@ const lastReviewsbyMovieId = async (req, res, next) => {
 const getReviewsbyUserId = async (req, res, next) => {
     try {
         if (!req.params.idUser.match(/^[0-9a-fA-F]{24}$/)) {
-            return res.status(401).json({
-                msg: "Mandaste algo mal"
+            return res.status(400).json({
+                msg: ERROR.INVALID_DATA
             })
         }
         res.send(await ReviewService.getReviewsbyUserId(req.params.idUser));

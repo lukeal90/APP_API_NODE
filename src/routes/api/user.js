@@ -7,7 +7,7 @@ const { id } = require('../../schemas/user');
 
 router.put('/friends/addfriend/',UserController.addFriend);
 router.delete('/friends/deletefriend',UserController.deleteFriend)
-router.get('/friends/getfriend/:id',UserController.getFriend)
+router.get('/friends/searchuserbyname/:name',UserController.searchUserByName)
 router.get('/friends/getfriends/:id',UserController.getFriends)
 router.put('/',validate(schema), UserController.addUser);
 router.delete('/:id', UserController.deleteUser);

@@ -47,7 +47,15 @@ const deleteUser = async (req, res, next) => {
         msg: ERROR.INVALID_DATA
       })
     }
-    res.send(await UserService.deleteUser(req.params.id));
+    if(await UserService.deleteUser(req.params.id) === null) {
+      res.status(400).json({
+        msg: "User not found"
+      })
+    }else{
+      res.status(200).json({
+        msg: "User deleted"
+      })
+    }    
   } catch (error) {
     next(error);
   }
@@ -59,7 +67,19 @@ const addFriend = async (req, res, next) => {
       _id,
       idFriend
     } = req.body;
-    res.send(await UserService.addFriend(_id, idFriend))
+
+    const user = await UserService.searchUserById(_id);
+
+    if( user === null){
+      res.status(400).json({
+        msg: "User not found"
+      })
+    }else{
+      UserService.addFriend(user, idFriend)
+      res.status(200).json({
+        msg: "Friend added"
+      })
+    }
   } catch (error) {
     next(error)
   }
@@ -68,7 +88,15 @@ const addFriend = async (req, res, next) => {
 
 const getFriends = async (req, res, next) => {
   try {
-    res.send(await UserService.getFriends(req.params.id));
+    
+    const user = await UserService.searchUserById(req.params.id);
+    if(user === null){
+      res.status(400).json({
+        msg: "User not found"
+      })
+    }else{
+      res.send( await UserService.getFriends(user));
+    }
   } catch (error) {
     next(error)
   }
@@ -81,7 +109,6 @@ const searchUserByName = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 }
 
 const deleteFriend = async (req, res, next) => {
@@ -90,7 +117,15 @@ const deleteFriend = async (req, res, next) => {
       _id,
       idFriend
     } = req.body;
-    res.send(await UserService.deleteFriend(_id, idFriend));
+    const user = await UserService.searchUserById(_id); 
+
+    if(user === null || user.friends.length === 0) {
+      res.status(400).json({})
+    }else{
+      UserService.deleteFriend(user, idFriend)
+      res.status(200).json({})
+    }
+  
   } catch (error) {
     next(error);
   }
@@ -102,7 +137,16 @@ const addMovie = async (req, res, next) => {
       _id,
       movie
     } = req.body;
-    res.send(await UserService.addMovie(_id, movie));
+
+    const user = await UserService.searchUserById(_id); 
+    
+    if(user === null) {
+      res.status(400).json({})
+    }else{
+      UserService.addMovie(user, movie)
+      res.status(200).json({})
+    }
+
   } catch (error) {
     next(error);
   }
@@ -115,7 +159,16 @@ const deleteMovie = async (req, res, next) => {
       _id,
       movie
     } = req.body;
-    res.send(await UserService.deleteMovie(_id, movie))
+
+    const user = await UserService.searchUserById(_id); 
+
+    if(user === null || user.movies.length === 0) {
+      res.status(400).json({})
+    }else{
+      UserService.deleteMovie(user, movie)
+      res.status(200).json({})
+    }
+
   } catch (error) {
     next(error);
   }
@@ -124,7 +177,15 @@ const deleteMovie = async (req, res, next) => {
 
 const getMovies = async (req, res, next) => {
   try {
-    res.send(await UserService.getMovies(req.params.id));
+
+    const user = await UserService.searchUserById(req.params.id); 
+
+    if(user === null) {
+      res.status(400).json({})
+    }else{
+      res.send( await UserService.getMovies(user))
+    }
+
   } catch (error) {
     next(error);
   }

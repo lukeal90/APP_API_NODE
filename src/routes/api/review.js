@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const router = Router();
-const schema = require('../../schemas/review');
-const validate = require('../middlewares/validate');
+const { validate, validateJWT } = require('../middlewares')
 const ReviewController = require('../../controllers/review');
+const schema = require('../../schemas/review');
+const router = Router();
 
-router.put('/', ReviewController.addReview);
-router.post('/:id', ReviewController.updateReview);
-router.delete('/:id', ReviewController.deleteReview);
-router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsMovie);
-router.get('/:idUser', ReviewController.getReviewsId);
-
+router.put('/', validate(schema), ReviewController.addReview);
+router.post('/:id',validateJWT, ReviewController.updateReview);
+router.delete('/:id',validateJWT, ReviewController.deleteReview);
+router.get('/lastmovie/:idPelicula', ReviewController.lastReviewsbyMovieId);
+router.get('/:idUser', ReviewController.getReviewsbyUserId);
+router.put('/getFriendsReviews/', ReviewController.getFriendsReviews);
 
 module.exports = router;

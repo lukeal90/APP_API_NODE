@@ -10,16 +10,23 @@ const ReviewSchema = Schema({
         required: [true, "score is required"]
     },
     idPelicula: {
-        type: Types.ObjectId,
+        type: Number,
         required: [true, "idPelicula is required"]
     },
     idUser: {
         type: Types.ObjectId,
         required: [true, "idUser is required"]
     },
+    movieImg: {
+        type: String,
+        required: [true, "movieImg is required"]
+    },
     createdAt: {
         type: Date,
-        required: [true, "Date is required"]
+    },
+    deleted: {
+        type: Boolean,
+        default: false,
     }
 });
 

@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 
 const addReview = async (req, res, next) => {
     try {
-        const { text, score, idPelicula, idUser} = req.body;
-        const idP = mongoose.Types.ObjectId(idPelicula);
+        const { text, score, idPelicula, idUser, movieImg} = req.body;
+        if(!idU.match(/^[0-9a-fA-F]{24}$/)){
+
+        }
         const idU = mongoose.Types.ObjectId(idUser);
-        res.send(await ReviewService.addReview(text, score, idP, idU))
+        res.send(await ReviewService.addReview(text, score, idPelicula, idU, movieImg))
     }catch(error){
         next(error);
     }
@@ -14,9 +16,7 @@ const addReview = async (req, res, next) => {
 
 const updateReview = async (req,res,next) => {
     try {
-        //const { _id } = req.params;
-        const { text, score} = req.body;
-        res.send(await ReviewService.updateReview(req.params.id,text,score));
+        res.send(await ReviewService.updateReview(req.params.id,req.body.text,req.body.score));
     } catch (error) {
         next(error);
     }
@@ -30,10 +30,10 @@ const deleteReview = async (req, res, next) => {
     }
 };
 
-const lastReviewsMovie = async (req, res, next) => {
+const lastReviewsbyMovieId = async (req, res, next) => {
     try {
         const {idPelicula} = req.params;
-        let movieRevs = await ReviewService.lastReviewsMovie(idPelicula);
+        let movieRevs = await ReviewService.lastReviewsbyMovieId(idPelicula);
         let lastReviews;
         if (movieRevs.length > 5) {
             lastReviews = movieRevs.slice(Math.max(reviews.length - 5, 1));
@@ -43,22 +43,43 @@ const lastReviewsMovie = async (req, res, next) => {
         }
         
         res.send(lastReviews);
-        console.log('Lucas manco con AWP');
     }
     catch (error) {
         next(error);
     }
     }
 
-const getReviewsId = async (req, res, next) => {
+const getReviewsbyUserId = async (req, res, next) => {
 try {
-    const {idUser} = req.params;
-    res.send(await ReviewService.getReviewsId(idUser));
-    
+    res.send(await ReviewService.getReviewsbyUserId(req.params.idUser));
 }
-catch (error) {
+catch (error){
     next(error);
 }
+}
+
+const getFriendsReviews = async (req, res, next) => {
+    
+    try {
+        const {friends} = req.body;
+        console.log('Hi');
+        console.log(friends);
+        let reviews = {};
+        friends.forEach( friendId => {
+            console.log(friendId);
+            let myrevs = ReviewService.getReviewsbyUserId(friendId)
+            reviews = {
+                ...reviews,
+                "`${friendId}`": myrevs 
+            }
+        })
+        console.log(reviews)
+        res.send('pepito');
+    }
+    catch (error) {
+        next(error);
+    }
+
 
 }
 
@@ -66,6 +87,7 @@ module.exports = {
     addReview,
     updateReview,
     deleteReview,
-    getReviewsId,
-    lastReviewsMovie
+    getReviewsbyUserId,
+    lastReviewsbyMovieId,
+    getFriendsReviews
 };

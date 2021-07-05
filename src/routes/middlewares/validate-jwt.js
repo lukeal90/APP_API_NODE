@@ -27,7 +27,7 @@ const validateJWT = async (req, res, next) => {
         }
         if (user.deleted) {
             return res.status(401).json({
-                msg: ERROR.INACTIVE
+                msg: ERROR.USER_INACTVE
             })
         }
         req.user = user;

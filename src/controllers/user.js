@@ -44,13 +44,13 @@ const getFriends = async (req, res,next ) =>{
  
 }
 
-const getFriend = async (req, res, next ) =>{
-  try{
-    const {_id, idFriend} = req.body;
-    res.send(await UserService.getFriend(_id, idFriend));
-}catch (error) {
-    next(error);
-  }
+
+const searchUserByName = async (req, res, next) => {
+try{
+  res.send(await UserService.searchUserByName(req.params.name))
+}catch(error){
+  next(error);
+}
 
 }
   
@@ -98,8 +98,8 @@ module.exports = {
   deleteUser,
   addFriend,
   getFriends,
-  getFriend,
   deleteFriend,
+  searchUserByName,
   deleteUser,
   addMovie,
   deleteMovie,

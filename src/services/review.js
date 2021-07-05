@@ -1,13 +1,12 @@
 const e = require('express');
 const ReviewModel = require('../models/review');
-const mongoose = require('mongoose');
 
 const getReviewsbyUserId = async (id) =>{
     return await ReviewModel.find({ idUser: id, deleted: false }).exec();
 };
 
 const lastReviewsbyMovieId = (movieId) => {
-    return ReviewModel.find({idPelicula: movieId}).exec();
+    return ReviewModel.find({idPelicula: movieId, deleted: false}).exec();
 }
 
 const addReview = (text, score, idP, idU, img) => {

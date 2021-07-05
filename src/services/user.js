@@ -17,45 +17,39 @@ const deleteUser = (id) => {
   return UserModel.findByIdAndUpdate( id, {deleted: true});
 }
 
-const addFriend = async (idU, idF) => {
-  const user = await UserModel.findById({_id: idU }).exec()
-  console.log(user);
-  user.friends.push(idF);
-  user.save();
-}
-
-const deleteFriend  = async (idU,idF) => {
-  const  user = await UserModel.findById({_id: idU }).exec()
-    user.friends.pull(idF)
-    user.save();
-  
+const searchUserById = async (id) => {
+  return await UserModel.findOne({_id: id , deleted: false}).exec();
 }
 
 const searchUserByName = async(name)=>{
   return UserModel.findOne({name: name, deleted: false}); 
 }
 
+const addFriend = async (user, idF) => {
+  user.friends.push(idF);
+  user.save();
+}
 
-const getFriends = async (idU) =>{
-  const user = await UserModel.findById({_id: idU }).exec();
+const deleteFriend  = async (user,idF) => {
+  user.friends.pull(idF);
+  user.save();
+}
+
+const getFriends = async (user) =>{
     return user.friends;
 }
 
-const addMovie = async (idU, idM) => {
-  const user = await UserModel.findById({_id: idU }).exec();
+const addMovie = async (user, idM) => {
   user.movies.push(idM);
   user.save();
-  //const movie = {idPelicula: idM, titulo: title, imagen: image};
 }
 
-const deleteMovie = async (idU, idM)=>{
-  const user = await UserModel.findById({_id: idU }).exec();
+const deleteMovie = async (user, idM)=>{
   user.movies.pull(idM);
   user.save();
 }
 
-const getMovies = async (idU) =>{
-  const user = await UserModel.findById({_id: idU }).exec();
+const getMovies = async (user) =>{
   return user.movies;
 }
 
@@ -70,5 +64,6 @@ module.exports = {
   addMovie,
   deleteMovie,
   searchUserByName,
+  searchUserById,
   checkEmail
 };

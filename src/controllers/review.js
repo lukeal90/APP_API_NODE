@@ -66,7 +66,6 @@ const getFriendsReviews = async (req, res, next) => {
     try {
         const friends = await UserService.getFriends(req.params.idUser)
         let friendsAll = [];
-
         for (let i = 0; i < friends.length; i++) {
             let revw = await ReviewService.getReviewsbyUserId(friends[i])
             friendsAll[i] = {
@@ -74,7 +73,6 @@ const getFriendsReviews = async (req, res, next) => {
                 reviews: [...revw]
             };
         }
-
         res.send(friendsAll);
     } catch (error) {
         next(error);

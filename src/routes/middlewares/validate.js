@@ -6,7 +6,7 @@ const validate = (schema) => {
             await schema.validateAsync(req.body);
             next();
         } catch (error) {
-            res.send(Boom.badData());
+            res.status(422).json(Boom.badData());
         }
     };
 }
